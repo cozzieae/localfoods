@@ -53,8 +53,17 @@
 		  var search =  position.coords.latitude + "," + position.coords.longitude;
 		  window.query = "Restaurants near " + position.coords.latitude + " " + position.coords.longitude;
 		  x.innerHTML = "Restaurants near " + search;
+		   var requestOptions = {
+			  method: 'GET',
+			};
+
+			fetch("https://api.geoapify.com/v1/geocode/reverse?lat=" + position.coords.latitude +"&lon=" + position.coords.longitude + "&apiKey=fdcf5482f8dc471a9d04308036a0d050", requestOptions)
+			  .then(response => response.json())
+			  .then(result => console.log(result))
+			  .catch(error => console.log('error', error));
 		  frame.src = "https://www.google.com/maps/embed/v1/search?key=AIzaSyC4Uzg3zthFWP4SrkIgDMAosJywYfARp_g"
-		   + "&q=food&zoom=15&center=" + search;
+		   + "&q=restaurants+near+" + requestOptions +"&zoom=15&center=" + search;
+
 		  //
 		  //var frame = document.querySelector("iframe");
 		  //frame.attr('width', 800);
@@ -62,6 +71,7 @@
 		  //frame.attr('src', "https://www.google.com/maps/embed/v1/place?key=API_KEY"
 		   //+ "&q=Restaurants near " + position.coords.latitude + " " + position.coords.longitude";
 		}
+		
 		</script>
 	</body>
 </html>
