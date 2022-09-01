@@ -50,11 +50,11 @@
 		  //SET IFRAME.SRC = TO CORRECT QUERY
 		  //Untested code
 		  var frame = document.getElementById("mapframe");
-		  var search =  position.coords.latitude + ", " + position.coords.longitude;
+		  var search =  position.coords.latitude + "," + position.coords.longitude;
 		  window.query = "Restaurants near " + position.coords.latitude + " " + position.coords.longitude;
 		  x.innerHTML = "Restaurants near " + search;
-		  frame.src = "https://www.google.com/maps/embed/v1/place?key=AIzaSyC4Uzg3zthFWP4SrkIgDMAosJywYfARp_g"
-		   + "&q=" + search;
+		  frame.src = "https://www.google.com/maps/embed/v1/search?key=AIzaSyC4Uzg3zthFWP4SrkIgDMAosJywYfARp_g"
+		   + "&q=food&zoom=15&center=" + search;
 		  //
 		  //var frame = document.querySelector("iframe");
 		  //frame.attr('width', 800);
