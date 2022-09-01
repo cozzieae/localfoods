@@ -1,0 +1,67 @@
+<!Doctype html>
+<html>
+	<head>
+		<Title> Local Foodz</title>
+		
+		<script type="module" src="./localfood.js"></script>
+	</head>
+	
+	
+	<body>
+		<Title> Local Foodz</title>
+		<iframe
+			  width="600"
+			  height="450"
+			  style="border:0"
+			  loading="lazy"
+			  id = "mapframe"
+			  allowfullscreen
+			  referrerpolicy="no-referrer-when-downgrade"
+			   src="https://www.google.com/maps/embed/v1/place?key=AIzaSyC4Uzg3zthFWP4SrkIgDMAosJywYfARp_g
+				&q=Space+Needle,Seattle+WA"
+				title = "mapframe">
+				
+				
+				
+		</iframe>
+		
+		<p>Click the button to share location data.</p>
+	
+		<button onclick="getLocation()">Find Me</button>
+
+		<p id="demo"></p>
+
+		<script>
+		var x = document.getElementById("demo");
+
+		function getLocation() {
+		  if (navigator.geolocation) {
+			navigator.geolocation.getCurrentPosition(showPosition);
+		  } else { 
+			x.innerHTML = "Geolocation is not supported by this browser.";
+		  }
+		}
+
+		function showPosition(position) {
+		  //x.innerHTML = "Latitude: " + position.coords.latitude + 
+		  //"<br>Longitude: " + position.coords.longitude;
+		  
+		  //TODO 
+		  //SET IFRAME.SRC = TO CORRECT QUERY
+		  //Untested code
+		  var frame = document.getElementById("mapframe");
+		  var search =  position.coords.latitude + ", " + position.coords.longitude;
+		  window.query = "Restaurants near " + position.coords.latitude + " " + position.coords.longitude;
+		  x.innerHTML = "Restaurants near " + search;
+		  frame.src = "https://www.google.com/maps/embed/v1/place?key=AIzaSyC4Uzg3zthFWP4SrkIgDMAosJywYfARp_g"
+		   + "&q=" + search;
+		  //
+		  //var frame = document.querySelector("iframe");
+		  //frame.attr('width', 800);
+		  //let element = document.querySelector('[title="mapframe"]');
+		  //frame.attr('src', "https://www.google.com/maps/embed/v1/place?key=API_KEY"
+		   //+ "&q=Restaurants near " + position.coords.latitude + " " + position.coords.longitude";
+		}
+		</script>
+	</body>
+</html>
