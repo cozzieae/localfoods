@@ -3,7 +3,7 @@
 	<head>
 		<Title> Local Foodz</title>
 		
-		<script type="module" src="./localfood.js"></script>
+		
 	</head>
 	
 	
@@ -50,18 +50,38 @@
 		  //SET IFRAME.SRC = TO CORRECT QUERY
 		  //Untested code
 		  var frame = document.getElementById("mapframe");
-		  var search =  position.coords.latitude + ", " + position.coords.longitude;
-		  window.query = "Restaurants near " + position.coords.latitude + " " + position.coords.longitude;
+		  var search =  position.coords.latitude + "," + position.coords.longitude;
+		  //window.query = "Restaurants near " + position.coords.latitude + " " + position.coords.longitude;
 		  x.innerHTML = "Restaurants near " + search;
-		  frame.src = "https://www.google.com/maps/embed/v1/place?key=AIzaSyC4Uzg3zthFWP4SrkIgDMAosJywYfARp_g"
-		   + "&q=" + search;
+		   var requestOptions = {
+			  method: 'GET',
+			};
+			const reverseGeocodingUrl = "https://api.geoapify.com/v1/geocode/reverse?lat=" + position.coords.latitude +"&lon=" + position.coords.longitude + "&apiKey=fdcf5482f8dc471a9d04308036a0d050";
+//			let addr = fetch("https://api.geoapify.com/v1/geocode/reverse?lat=" + position.coords.latitude +"&lon=" + position.coords.longitude + "&apiKey=fdcf5482f8dc471a9d04308036a0d050", requestOptions)
+//			  .then(response => response.json())
+//			  .then(result => console.log(result))
+//			  .catch(error => console.log('error', error));
+			fetch(reverseGeocodingUrl).then(result => result.json())
+				.then(featureCollection => {
+				  if (featureCollection.features.length === 0) {
+					document.getElementById("status").textContent = "The address is not found";
+					return;
+				  }
+			var foundAddress = featureCollection.features[0];
+			var formatted = foundAddress.properties.formatted;
+			var addr1 = foundAddress.properties.postcode;
+		  frame.src = "https://www.google.com/maps/embed/v1/search?key=AIzaSyC4Uzg3zthFWP4SrkIgDMAosJywYfARp_g"
+		   + "&q=restaurants+near+" + addr1 +"&zoom=15&center=" + search;
+
 		  //
 		  //var frame = document.querySelector("iframe");
 		  //frame.attr('width', 800);
 		  //let element = document.querySelector('[title="mapframe"]');
 		  //frame.attr('src', "https://www.google.com/maps/embed/v1/place?key=API_KEY"
 		   //+ "&q=Restaurants near " + position.coords.latitude + " " + position.coords.longitude";
-		}
+			});
+			}
+		
 		</script>
 	</body>
 </html>
