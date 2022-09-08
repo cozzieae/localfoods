@@ -3,12 +3,19 @@
 	<head>
 		<Title> Local Foods</title>
 		
-		
+<!-- 				<script async
+					src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDQaafaxlkiWcCbgTPy37JNe4uz-4pP2ng&libraries=places&callback=initMap">
+				</script> -->
+				<script
+					src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDQaafaxlkiWcCbgTPy37JNe4uz-4pP2ng&callback=initMap&libraries=places&v=weekly"
+					defer
+				></script>
 	</head>
 	
 	
 	<body>
 		<Title> Local Foods</title>
+		
 		<iframe
 			  width="600"
 			  height="450"
@@ -24,6 +31,22 @@
 				
 				
 		</iframe>
+		</b>
+		<iframe
+			  width="600"
+			  height="450"
+			  style="border:0"
+			  loading="lazy"
+			  id = "map"
+			  allowfullscreen
+			  referrerpolicy="no-referrer-when-downgrade"
+			   src="https://www.google.com/maps/embed/v1/place?key=AIzaSyC4Uzg3zthFWP4SrkIgDMAosJywYfARp_g
+				&q=Space+Needle,Seattle+WA"
+				title = "map">
+				
+				
+				
+		</iframe>
 		
 		<p>Click the button to share location data.</p>
 	
@@ -32,6 +55,20 @@
 		<p id="demo"></p>
 
 		<script>
+//		var map;
+//		var service;
+//		var infowindow;
+//		function callback(results, status) {
+//			if (status == google.maps.places.PlacesServiceStatus.OK) {
+//				for (var i = 0; i < results.length; i++) {
+//					createMarker(results[i]);
+//				}
+//			}
+//		}
+		
+		
+		
+		
 		var x = document.getElementById("demo");
 
 		function getLocation() {
@@ -48,9 +85,11 @@
 		  
 		  //TODO 
 		  //SET IFRAME.SRC = TO CORRECT QUERY
-		  //Untested code
+		  
 		  var frame = document.getElementById("mapframe");
 		  var search =  position.coords.latitude + "," + position.coords.longitude;
+		  var lat = position.coords.latitude;
+		  var lon = position.coords.longitude;
 		  //window.query = "Restaurants near " + position.coords.latitude + " " + position.coords.longitude;
 		  x.innerHTML = "Restaurants near " + search;
 		   var requestOptions = {
@@ -73,7 +112,7 @@
 			var zipaddr = foundAddress.properties.postcode;
 			var first3= addr1.charAt(0) + addr1.charAt(1) + addr1.charAt(2);
 			
-			let regex = /[0-9][0-9][0-9]/
+			let regex = /[0-9][0-9][0-9]/;
 			
  			if(regex.test(first3)){
 				frame.src = "https://www.google.com/maps/embed/v1/search?key=AIzaSyC4Uzg3zthFWP4SrkIgDMAosJywYfARp_g"
@@ -84,6 +123,26 @@
 					+ "&q=restaurants+near+" + zipaddr +"&zoom=15&center=" + search;
 			} 
 // Places API KEY = AIzaSyDQaafaxlkiWcCbgTPy37JNe4uz-4pP2ng
+
+
+
+			
+			
+//			let service = new google.maps.places.PlacesService(map);
+//			var location = new google.maps.LatLng(lat, lon);
+			
+//			map = new google.maps.Map(document.getElementById('map'), {
+//				center: location,
+//				zoom: 15
+//			});
+//			  var request = {
+//				location: location,
+//				radius: '5000',
+//				type: ['restaurant']
+//				};
+//				
+//			service.nearbySearch(request, callback);
+			
 		  //
 		  //var frame = document.querySelector("iframe");
 		  //frame.attr('width', 800);
@@ -93,6 +152,46 @@
 			});
 			}
 		
+		
+		
+		
+//		var map;
+//		var service;
+//		var infowindow;
+
+//		function initMap() {
+//			var pyrmont = new google.maps.LatLng(-33.8665433,151.1956316);
+
+//			map = new google.maps.Map(document.getElementById('map'), {
+//				center: pyrmont,
+//				zoom: 15
+//			});
+
+//			var request = {
+//				location: pyrmont,
+//				radius: '500',
+//				type: ['restaurant']
+//			};
+
+//			service = new google.maps.places.PlacesService(map);
+//			service.nearbySearch(request, callback);
+//			}
+
+//			function callback(results, status) {
+//				if (status == google.maps.places.PlacesServiceStatus.OK) {
+//					for (var i = 0; i < results.length; i++) {
+//						createMarker(results[i]);
+//					}
+//				}
+//			}
+		
+		
+		
+		
+		
+		
+
 		</script>
+
 	</body>
 </html>
