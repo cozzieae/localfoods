@@ -69,9 +69,20 @@
 				  }
 			var foundAddress = featureCollection.features[0];
 			var formatted = foundAddress.properties.formatted;
-			var addr1 = foundAddress.properties.postcode;
-		  frame.src = "https://www.google.com/maps/embed/v1/search?key=AIzaSyC4Uzg3zthFWP4SrkIgDMAosJywYfARp_g"
-		   + "&q=restaurants+near+" + addr1 +"&zoom=15&center=" + search;
+			var addr1 = foundAddress.properties.address_line1;
+			var zipaddr = foundAddress.properties.postcode;
+			var first3= addr1.charAt(0) + addr1.charAt(1) + addr1.charAt(2);
+			
+			let regex = /[0-9][0-9][0-9]/
+			
+ 			if(regex.test(first3)){
+				frame.src = "https://www.google.com/maps/embed/v1/search?key=AIzaSyC4Uzg3zthFWP4SrkIgDMAosJywYfARp_g"
+					+ "&q=restaurants+near+" + addr1 +"&zoom=15&center=" + search;
+			}
+			else{
+			frame.src = "https://www.google.com/maps/embed/v1/search?key=AIzaSyC4Uzg3zthFWP4SrkIgDMAosJywYfARp_g"
+					+ "&q=restaurants+near+" + zipaddr +"&zoom=15&center=" + search;
+			} 
 
 		  //
 		  //var frame = document.querySelector("iframe");
