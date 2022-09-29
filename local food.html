@@ -1,29 +1,20 @@
-<!Doctype html>
 <html>
-	<head>
-		<Title> Local Foodz</title>
-		
-		
-	</head>
-	
-	
-	<body>
-		<Title> Local Foodz</title>
-		<iframe
-			  width="600"
-			  height="450"
-			  style="border:0"
-			  loading="lazy"
-			  id = "mapframe"
-			  allowfullscreen
-			  referrerpolicy="no-referrer-when-downgrade"
-			   src="https://www.google.com/maps/embed/v1/place?key=AIzaSyC4Uzg3zthFWP4SrkIgDMAosJywYfARp_g
-				&q=Space+Needle,Seattle+WA"
-				title = "mapframe">
-				
-				
-				
-		</iframe>
+  <head>
+    <title>Local Foodz</title>
+    <script src= "file:///C:/Users/blankenshipgm/Documents/sample/sample.js" </script>
+    <!-- playground-hide -->
+    <script>
+      const process = { env: {} };
+      process.env.GOOGLE_MAPS_API_KEY =
+        "AIzaSyDQaafaxlkiWcCbgTPy37JNe4uz-4pP2ng";
+    </script>
+    <!-- playground-hide-end -->
+
+    <link rel="stylesheet" type="text/css" href="./sample.css" />
+    <script type="module" src="./sample.js"></script>
+  </head>
+  <body>
+  </iframe>
 		
 		<p>Click the button to share location data.</p>
 	
@@ -31,68 +22,17 @@
 
 		<p id="demo"></p>
 
-		<script>
-		var x = document.getElementById("demo");
+    <div id="map"></div>
 
-		function getLocation() {
-		  if (navigator.geolocation) {
-			navigator.geolocation.getCurrentPosition(showPosition);
-		  } else { 
-			x.innerHTML = "Geolocation is not supported by this browser.";
-		  }
-		}
-
-		function showPosition(position) {
-		  //x.innerHTML = "Latitude: " + position.coords.latitude + 
-		  //"<br>Longitude: " + position.coords.longitude;
-		  
-		  //TODO 
-		  //SET IFRAME.SRC = TO CORRECT QUERY
-		  //Untested code
-		  var frame = document.getElementById("mapframe");
-		  var search =  position.coords.latitude + "," + position.coords.longitude;
-		  //window.query = "Restaurants near " + position.coords.latitude + " " + position.coords.longitude;
-		  x.innerHTML = "Restaurants near " + search;
-		   var requestOptions = {
-			  method: 'GET',
-			};
-			const reverseGeocodingUrl = "https://api.geoapify.com/v1/geocode/reverse?lat=" + position.coords.latitude +"&lon=" + position.coords.longitude + "&apiKey=fdcf5482f8dc471a9d04308036a0d050";
-//			let addr = fetch("https://api.geoapify.com/v1/geocode/reverse?lat=" + position.coords.latitude +"&lon=" + position.coords.longitude + "&apiKey=fdcf5482f8dc471a9d04308036a0d050", requestOptions)
-//			  .then(response => response.json())
-//			  .then(result => console.log(result))
-//			  .catch(error => console.log('error', error));
-			fetch(reverseGeocodingUrl).then(result => result.json())
-				.then(featureCollection => {
-				  if (featureCollection.features.length === 0) {
-					document.getElementById("status").textContent = "The address is not found";
-					return;
-				  }
-			var foundAddress = featureCollection.features[0];
-			var formatted = foundAddress.properties.formatted;
-			var addr1 = foundAddress.properties.address_line1;
-			var zipaddr = foundAddress.properties.postcode;
-			var first3= addr1.charAt(0) + addr1.charAt(1) + addr1.charAt(2);
-			
-			let regex = /[0-9][0-9][0-9]/
-			
- 			if(regex.test(first3)){
-				frame.src = "https://www.google.com/maps/embed/v1/search?key=AIzaSyC4Uzg3zthFWP4SrkIgDMAosJywYfARp_g"
-					+ "&q=restaurants+near+" + addr1 +"&zoom=15&center=" + search;
-			}
-			else{
-			frame.src = "https://www.google.com/maps/embed/v1/search?key=AIzaSyC4Uzg3zthFWP4SrkIgDMAosJywYfARp_g"
-					+ "&q=restaurants+near+" + zipaddr +"&zoom=15&center=" + search;
-			} 
-
-		  //
-		  //var frame = document.querySelector("iframe");
-		  //frame.attr('width', 800);
-		  //let element = document.querySelector('[title="mapframe"]');
-		  //frame.attr('src', "https://www.google.com/maps/embed/v1/place?key=API_KEY"
-		   //+ "&q=Restaurants near " + position.coords.latitude + " " + position.coords.longitude";
-			});
-			}
-		
-		</script>
-	</body>
+    <!-- 
+     The `defer` attribute causes the callback to execute after the full HTML
+     document has been parsed. For non-blocking uses, avoiding race conditions,
+     and consistent behavior across browsers, consider loading using Promises
+     with https://www.npmjs.com/package/@googlemaps/js-api-loader.
+    -->
+    <script
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDQaafaxlkiWcCbgTPy37JNe4uz-4pP2ng&callback=initMap&libraries=places&v=weekly"
+      defer
+    ></script>
+  </body>
 </html>
