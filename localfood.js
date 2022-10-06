@@ -31,7 +31,6 @@ function initMap() {
         }
     });
 }
-
 function createMarker(place) {
     if (!place.geometry || !place.geometry.location)
         return;
@@ -83,68 +82,87 @@ function createMarker(place) {
 		  
 		  window.query = "Restaurants near " + position.coords.latitude + " " + position.coords.longitude;
 		  x.innerHTML = "Restaurants near " + search;
-	//	   var requestOptions = {
-		//	  method: 'GET',
-		//	};
+		   var requestOptions = {
+			  method: 'GET',
+			};
 			const reverseGeocodingUrl = "https://api.geoapify.com/v1/geocode/reverse?lat=" + position.coords.latitude +"&lon=" + position.coords.longitude + "&apiKey=fdcf5482f8dc471a9d04308036a0d050";
-//			let addr = fetch("https://api.geoapify.com/v1/geocode/reverse?lat=" + position.coords.latitude +"&lon=" + position.coords.longitude + "&apiKey=fdcf5482f8dc471a9d04308036a0d050", requestOptions)
-//			  .then(response => response.json())
-//			  .then(result => console.log(result))
-//			  .catch(error => console.log('error', error));
-			//fetch(reverseGeocodingUrl).then(result => result.json())
-			//	.then(featureCollection => {
-			//	  if (featureCollection.features.length === 0) {
-			//		document.getElementById("status").textContent = "The address is not found";
-			//		return;
-			//	  }
-			//var foundAddress = featureCollection.features[0];
-			//var formatted = foundAddress.properties.formatted;
-			//var addr1 = foundAddress.properties.address_line1;
-			//var zipaddr = foundAddress.properties.postcode;
-			
-			
-			
-			//var request = {
-				//query: "Restaurants near " + sydney,
-				//fields: ["geometry"],
-			//};
-			
-			//service = new google.maps.places.PlacesService(map);
-			//service.findPlaceFromQuery(request, function (results, status) {
+			let addr = fetch("https://api.geoapify.com/v1/geocode/reverse?lat=" + position.coords.latitude +"&lon=" + position.coords.longitude + "&apiKey=fdcf5482f8dc471a9d04308036a0d050", requestOptions)
+			  .then(response => response.json())
+			  .then(result => console.log(result))
+			  .catch(error => console.log('error', error));
+			fetch(reverseGeocodingUrl).then(result => result.json())
+				.then(featureCollection => {
+				  if (featureCollection.features.length === 0) {
+						document.getElementById("status").textContent = "The address is not found";
+						x.innerHTML = "address not found";
+						return;
+				  }
+				var foundAddress = featureCollection.features[0];
+				var formatted = foundAddress.properties.formatted;
+				var addr1 = foundAddress.properties.address_line1;
+				var zipaddr = foundAddress.properties.postcode;
 				
 				
-				const firstString = 'https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=';
-				//follow with location data
-				const local = lat + '%2C' + lon;
-				const secondString = '&radius=1500&type=restaurant&keyword='
-				//follow with things to remove??
 				
-				const thirdString = '&key=AIzaSyDQaafaxlkiWcCbgTPy37JNe4uz-4pP2ng';
-				const nearBySearchString = firstString + local + secondString + thirdString
-				var axios = require(['axios']);
-
-				var config = {
+				
+				
+				
+				
+				
+				
+				const axios = require('axios');
+				
+				//require(['axios'], function (axios) {
+				//foo is now loaded.
+				//});
+				
+				
+				
+				var str1 = 'https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=';
+				var loc = lon + "%2C" + lat;
+				var str2 = '&radius=1500&type=restaurant&key=';
+				var key = 'AIzaSyDQaafaxlkiWcCbgTPy37JNe4uz-4pP2ng';
+				var searchterms = str1 + loc + str2 + key;
+				var request = {
 				  method: 'get',
-				  url: nearBySearchString,
-				  //url: 'https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=-33.8670522%2C151.1957362&radius=1500&type=restaurant&keyword=cruise&key=AIzaSyDQaafaxlkiWcCbgTPy37JNe4uz-4pP2ng',
+				  url: searchterms,
 				  headers: { }
 				};
 
-				axios(config)
-				.then(function (response) {
+				axios(request)
+				.then(function (results) {
 				  console.log(JSON.stringify(response.data));
 				})
 				.catch(function (error) {
 				  console.log(error);
-				});	
+				});
 				
-			if (status === google.maps.places.PlacesServiceStatus.OK && results) {
-				for (var i = 0; i < results.length; i++) {
-					createMarker(results[i]);
-				}
-				map.setCenter(results[0].geometry.location);
-			}
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
 			
+				//var request = {
+					//query: "Restaurants",
+					//fields: ["geometry", "formatted_address"],
+					//locationBias: {radius: 5000, center: {lat: lat, lng: lon}}
+				//};
+				service = new google.maps.places.PlacesService(map);
+				service.findPlaceFromQuery(request, function (results, status) {
+				if (status === google.maps.places.PlacesServiceStatus.OK && results) {
+					for (var i = 0; i < results.length; i++) {
+						createMarker(results[i]);
+					}
+					map.setCenter(sydney);
+				}
+				x.innerHTML = results[0].formatted_address;
+				});
 			
 			
 			
@@ -159,6 +177,6 @@ function createMarker(place) {
 			else{
 			//frame.src = "https://www.google.com/maps/embed/v1/search?key=AIzaSyC4Uzg3zthFWP4SrkIgDMAosJywYfARp_g"
 					//+ "&q=restaurants+near+" + zipaddr +"&zoom=15&center=" + search;
-			} 
+			} });
 window.initMap = initMap;
 			}
