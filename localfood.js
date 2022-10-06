@@ -31,6 +31,7 @@ function initMap() {
         }
     });
 }
+
 function createMarker(place) {
     if (!place.geometry || !place.geometry.location)
         return;
@@ -68,9 +69,10 @@ function createMarker(place) {
 		  var frame = document.getElementById("map");
 		  var search =  position.coords.latitude + "," + position.coords.longitude;
 		  
+		  lat = position.coords.latitude;
+		  lon = position.coords.longitude;
 		  
-		  
-		  var sydney = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+		  var sydney = new google.maps.LatLng(lat, lon);
 		  infowindow = new google.maps.InfoWindow();
 		  map = new google.maps.Map(document.getElementById("map"), {
 			center: sydney,
@@ -78,8 +80,7 @@ function createMarker(place) {
 		  });
 		  
 		  
-		  lat = position.coords.latitude;
-		  lon = position.coords.longitude;
+		  
 		  window.query = "Restaurants near " + position.coords.latitude + " " + position.coords.longitude;
 		  x.innerHTML = "Restaurants near " + search;
 	//	   var requestOptions = {
@@ -103,19 +104,47 @@ function createMarker(place) {
 			
 			
 			
-			var request = {
-				query: "Restaurants",
-				fields: ["geometry"],
-			};
-			service = new google.maps.places.PlacesService(map);
-			service.findPlaceFromQuery(request, function (results, status) {
+			//var request = {
+				//query: "Restaurants near " + sydney,
+				//fields: ["geometry"],
+			//};
+			
+			//service = new google.maps.places.PlacesService(map);
+			//service.findPlaceFromQuery(request, function (results, status) {
+				
+				
+				const firstString = 'https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=';
+				//follow with location data
+				const local = lat + '%2C' + lon;
+				const secondString = '&radius=1500&type=restaurant&keyword='
+				//follow with things to remove??
+				
+				const thirdString = '&key=AIzaSyDQaafaxlkiWcCbgTPy37JNe4uz-4pP2ng';
+				const nearBySearchString = firstString + local + secondString + thirdString
+				var axios = require(['axios']);
+
+				var config = {
+				  method: 'get',
+				  url: nearBySearchString,
+				  //url: 'https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=-33.8670522%2C151.1957362&radius=1500&type=restaurant&keyword=cruise&key=AIzaSyDQaafaxlkiWcCbgTPy37JNe4uz-4pP2ng',
+				  headers: { }
+				};
+
+				axios(config)
+				.then(function (response) {
+				  console.log(JSON.stringify(response.data));
+				})
+				.catch(function (error) {
+				  console.log(error);
+				});	
+				
 			if (status === google.maps.places.PlacesServiceStatus.OK && results) {
 				for (var i = 0; i < results.length; i++) {
 					createMarker(results[i]);
 				}
 				map.setCenter(results[0].geometry.location);
 			}
-			});
+			
 			
 			
 			
