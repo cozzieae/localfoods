@@ -1,0 +1,41 @@
+<html>
+  <head>
+    <title>Local Foodz</title>
+	<script src= "./scripts/axios.js"> </script>
+	<script src= "./scripts/require.js"> </script>
+	
+    <script src= "./scripts/localfood.js"> </script>
+    <!-- playground-hide -->
+    <script>
+      const process = { env: {} };
+      process.env.GOOGLE_MAPS_API_KEY =
+        "AIzaSyDQaafaxlkiWcCbgTPy37JNe4uz-4pP2ng";
+    </script>
+    <!-- playground-hide-end -->
+
+    <link rel="stylesheet" type="text/css" href="./css/localfood.css" />
+    
+  </head>
+  <body>
+  </iframe>
+		
+		<p>Click the button to share location data.</p>
+	
+		<button onclick="getLocation()">Find Me</button>
+
+		<p id="demo"></p>
+
+    <div id="map"></div>
+
+    <!-- 
+     The `defer` attribute causes the callback to execute after the full HTML
+     document has been parsed. For non-blocking uses, avoiding race conditions,
+     and consistent behavior across browsers, consider loading using Promises
+     with https://www.npmjs.com/package/@googlemaps/js-api-loader.
+    -->
+    <script
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDQaafaxlkiWcCbgTPy37JNe4uz-4pP2ng&callback=initMap&libraries=places&v=weekly"
+      defer
+    ></script>
+  </body>
+</html>
