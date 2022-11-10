@@ -16,7 +16,8 @@ body {
   */
 text-align: center;
   background-color:mintcream;
-background-color:rgba(17,17,17,1);
+  background-image: url('../media/background.jpg');
+  filter: contrast(90%);
   margin: 0;
   padding:  0;
 }
@@ -50,6 +51,7 @@ background-color:rgba(17,17,17,1);
 #map {
   box-shadow: 10px 10px 20px -13px rgba(0,0,0,0.75);
   border-radius: 5px;
+ filter: contrast(120%);
 }
 #H1{
 background-color:rgba(17,17,17,1);
@@ -57,9 +59,3 @@ color: white;
 text-align: center;
 }
 
-button{
-background-color: white;
-width: 100px;
-height: 30px;
-font-size: 18px;
-}
