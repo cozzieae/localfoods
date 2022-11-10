@@ -1,7 +1,4 @@
-/* 
- * Always set the map height explicitly to define the size of the div element
- * that contains the map. 
- */
+
 #map {
   height: 100%;
 }
@@ -11,7 +8,44 @@
  */
 html,
 body {
-  height: 85%;
-  margin: 0;
+  height: 100%;
+  /*
+  margin: 50;
+  margin-bottom: 50%;
   padding: 0;
+  */
+  background-color:mintcream;
+  margin: 0;
+  padding:  0;
 }
+.center {
+  display: block;
+  width: 300%;
+  margin-top: -10%;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+}
+
+
+.section {
+  margin-left: 10%;
+  margin-right: 10%;
+}
+
+.banner {
+  display: flex;
+  justify-content: center;
+  background-color: rgba(17, 17, 17, 1);
+  
+}
+
+.footer {
+  height: 50px;
+}
+
+#map {
+  box-shadow: 10px 10px 20px -13px rgba(0,0,0,0.75);
+  border-radius: 5px;
+}
+
