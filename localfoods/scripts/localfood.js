@@ -109,11 +109,11 @@ function showPosition(position) {
 
 	let str1 = 'https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=';
 	let loc = lat + "%2C" + lon;
-	let str2 = '&radius=1500&type=restaurant&key=';
+	let str2 = '&radius=800&type=restaurant&key=';
 	let key = 'AIzaSyDQaafaxlkiWcCbgTPy37JNe4uz-4pP2ng';
 	let searchterms = str1 + loc + str2 + key;
 	
-	x.innerHTML = searchterms;
+	//x.innerHTML = searchterms;
 
 	service = new google.maps.places.PlacesService(map);
 
@@ -121,7 +121,7 @@ function showPosition(position) {
 
 	let request = {
 		location: currentLocation,
-		radius: '1500',
+		radius: '500',
 		type: ['restaurant']
 	};
 
