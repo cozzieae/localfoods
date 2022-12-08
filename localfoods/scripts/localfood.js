@@ -128,9 +128,15 @@ function showPosition(position) {
 	service.nearbySearch(request, (results, status) => {
 		if (status == google.maps.places.PlacesServiceStatus.OK) {
 			for (let i = 0; i < results.length; i++) {
+			  if(results[i].name == "Macado's" || results[i].name == "McAlister's Deli" || results[i].name == "Chick-Fil-A" || results[i].name == "Jimmy John's"){
+				  //do nothing
+			  }
+			  else{
+				  
 			  createMarker(results[i]);
+			  }
 			}
-
+			
 			map.setCenter(results[0].geometry.location);
 		  }
 	});
